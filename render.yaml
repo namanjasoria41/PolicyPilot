@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: policy-pilot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SESSION_SECRET
+        generateValue: true
+      # If you want to use Postgres, uncomment the lines below and the databases section. 
+      # Otherwise, it uses SQLite which resets its data on every deployment (ephemeral).
+      # - key: DATABASE_URL
+      #   fromDatabase:
+      #     name: policy-pilot-db
+      #     property: connectionString
+
+# databases:
+#   - name: policy-pilot-db
+#     plan: free
